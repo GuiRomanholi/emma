@@ -75,7 +75,7 @@ public class ReviewController {
     public ResponseEntity<ReviewResponse> create(@PathVariable Long readingId,
                                                  @RequestBody @Valid ReviewRequest request) {
         Review review = new Review();
-        review.setDescricao(request.getDescricao());
+        review.setDescription(request.getDescription());
 
         Review saved = service.create(readingId, review);
 
@@ -96,7 +96,7 @@ public class ReviewController {
                                                  @RequestBody @Valid ReviewRequest request) {
         try {
             Review review = new Review();
-            review.setDescricao(request.getDescricao());
+            review.setDescription(request.getDescription());
 
             Review updated = service.update(id, review);
             return ResponseEntity.ok(toResponse(updated));
@@ -127,7 +127,7 @@ public class ReviewController {
 
         return new ReviewResponse(
                 r.getId(),
-                r.getDescricao(),
+                r.getDescription(),
                 r.getReading().getId(),
                 self
         );

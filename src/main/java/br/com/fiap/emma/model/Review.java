@@ -8,16 +8,17 @@ public class Review {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
-    private String descricao;
+    private String description;
     @ManyToOne
     @JoinColumn(name = "reading_id")
     private Reading reading;
 
     public Review(){}
 
-    public Review(Long id, String descricao) {
+    public Review(Long id, String description, Reading reading) {
         this.id = id;
-        this.descricao = descricao;
+        this.description = description;
+        this.reading = reading;
     }
 
     //getters e setters
@@ -30,12 +31,12 @@ public class Review {
         this.id = id;
     }
 
-    public String getDescricao() {
-        return descricao;
+    public String getDescription() {
+        return description;
     }
 
-    public void setDescricao(String descricao) {
-        this.descricao = descricao;
+    public void setDescription(String description) {
+        this.description = description;
     }
 
     public Reading getReading() {

@@ -8,6 +8,7 @@ import jakarta.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.hateoas.Link;
 import org.springframework.hateoas.server.mvc.WebMvcLinkBuilder;
+import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
@@ -63,26 +64,31 @@ public class ReadingController {
         }
     }
 
-    @Operation(summary = "Cria uma nova leitura para um Person")
-    @ApiResponses({
-            @ApiResponse(responseCode = "201", description = "Leitura criada",
-                    content = @Content(mediaType = "application/json",
-                            schema = @Schema(implementation = ReadingResponse.class))),
-            @ApiResponse(responseCode = "400", description = "Requisição inválida",
+    @Operation(summary = "Cria uma nova leitura e a associa a um Person")
+    @ApiResponses(value = {
+            @ApiResponse(responseCode = "201", description = "Leitura cadastrada com sucesso",
+                    content = {@Content(mediaType = "application/json",
+                            schema = @Schema(implementation = ReadingResponse.class))}),
+            @ApiResponse(responseCode = "400", description = "Atributos informados são inválidos ou Person não encontrado",
                     content = @Content(schema = @Schema()))
     })
-    @PostMapping("/person/{personId}")
-    public ResponseEntity<ReadingResponse> create(@PathVariable Long personId,
-                                                  @RequestBody @Valid ReadingRequest request) {
-        Reading reading = new Reading();
-        reading.setDate(request.getDate());
-        reading.setDescription(request.getDescription());
-        reading.setHumor(request.getHumor());
+    @PostMapping
+    public ResponseEntity<ReadingResponse> create(@RequestBody @Valid ReadingRequest request) {
+        try {
+            Reading reading = new Reading();
+            reading.setDate(request.getDate());
+            reading.setDescription(request.getDescription());
+            reading.setHumor(request.getHumor());
 
-        Reading saved = service.create(personId, reading);
+            Reading saved = service.create(request.getPersonId(), reading);
 
-        URI uri = URI.create("/readings/" + saved.getId());
-        return ResponseEntity.created(uri).body(toResponse(saved));
+            URI uri = URI.create("/readings/" + saved.getId());
+
+            return ResponseEntity.created(uri).body(toResponse(saved));
+
+        } catch (RuntimeException e) {
+            return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
+        }
     }
 
     @Operation(summary = "Atualiza uma leitura")
@@ -90,19 +96,14 @@ public class ReadingController {
             @ApiResponse(responseCode = "200", description = "Atualizado",
                     content = @Content(mediaType = "application/json",
                             schema = @Schema(implementation = ReadingResponse.class))),
-            @ApiResponse(responseCode = "404", description = "Reading não encontrada",
+            @ApiResponse(responseCode = "404", description = "Reading ou Person não encontrado",
                     content = @Content(schema = @Schema()))
     })
     @PutMapping("/{id}")
     public ResponseEntity<ReadingResponse> update(@PathVariable Long id,
                                                   @RequestBody @Valid ReadingRequest request) {
         try {
-            Reading reading = new Reading();
-            reading.setDate(request.getDate());
-            reading.setDescription(request.getDescription());
-            reading.setHumor(request.getHumor());
-
-            Reading updated = service.update(id, reading);
+            Reading updated = service.update(id, request);
             return ResponseEntity.ok(toResponse(updated));
         } catch (RuntimeException e) {
             return ResponseEntity.notFound().build();

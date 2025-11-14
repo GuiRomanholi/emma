@@ -47,7 +47,7 @@ public class ReviewService {
     @CacheEvict(value = "reviews", allEntries = true)
     public Review update(Long id, Review review) {
         Review existing = findById(id);
-        existing.setDescricao(review.getDescricao());
+        existing.setDescription(review.getDescription());
         return reviewRepository.save(existing);
     }
 

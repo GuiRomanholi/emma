@@ -1,5 +1,6 @@
 package br.com.fiap.emma.service;
 
+import br.com.fiap.emma.dto.ReadingRequest;
 import br.com.fiap.emma.model.Person;
 import br.com.fiap.emma.model.Reading;
 import br.com.fiap.emma.repository.PersonRepository;
@@ -45,11 +46,21 @@ public class ReadingService {
 
     @CachePut(value = "reading", key = "#id")
     @CacheEvict(value = "readings", allEntries = true)
-    public Reading update(Long id, Reading reading) {
+    public Reading update(Long id, ReadingRequest request) {
         Reading existing = findById(id);
-        existing.setDate(reading.getDate());
-        existing.setDescription(reading.getDescription());
-        existing.setHumor(reading.getHumor());
+
+        existing.setDate(request.getDate());
+        existing.setDescription(request.getDescription());
+        existing.setHumor(request.getHumor());
+
+        if (request.getPersonId() != null) {
+            Person person = personRepository.findById(request.getPersonId())
+                    .orElseThrow(() -> new RuntimeException("Person não encontrada: " + request.getPersonId()));
+            existing.setPerson(person);
+        } else {
+            existing.setPerson(null);
+        }
+
         return readingRepository.save(existing);
     }
 
