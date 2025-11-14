@@ -1,5 +1,6 @@
 package br.com.fiap.emma.service;
 
+import br.com.fiap.emma.dto.ReviewRequest;
 import br.com.fiap.emma.model.Reading;
 import br.com.fiap.emma.model.Review;
 import br.com.fiap.emma.repository.ReadingRepository;
@@ -45,9 +46,19 @@ public class ReviewService {
 
     @CachePut(value = "review", key = "#id")
     @CacheEvict(value = "reviews", allEntries = true)
-    public Review update(Long id, Review review) {
+    public Review update(Long id, ReviewRequest request) {
         Review existing = findById(id);
-        existing.setDescription(review.getDescription());
+
+        existing.setDescription(request.getDescription());
+
+        if (request.getReadingId() != null) {
+            Reading reading = readingRepository.findById(request.getReadingId())
+                    .orElseThrow(() -> new RuntimeException("Reading não encontrada: " + request.getReadingId()));
+            existing.setReading(reading);
+        } else {
+            existing.setReading(null);
+        }
+
         return reviewRepository.save(existing);
     }
 

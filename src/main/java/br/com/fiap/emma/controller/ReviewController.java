@@ -8,6 +8,7 @@ import jakarta.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.hateoas.Link;
 import org.springframework.hateoas.server.mvc.WebMvcLinkBuilder;
+import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
@@ -65,41 +66,44 @@ public class ReviewController {
 
     @Operation(summary = "Cria uma review para uma Reading")
     @ApiResponses({
-            @ApiResponse(responseCode = "201", description = "Review criada",
+            @ApiResponse(responseCode = "201", description = "Review criada com sucesso",
                     content = @Content(mediaType = "application/json",
                             schema = @Schema(implementation = ReviewResponse.class))),
-            @ApiResponse(responseCode = "400", description = "Requisição inválida",
+            @ApiResponse(responseCode = "400", description = "Atributos informados são inválidos ou Reading não encontrada",
                     content = @Content(schema = @Schema()))
     })
-    @PostMapping("/reading/{readingId}")
-    public ResponseEntity<ReviewResponse> create(@PathVariable Long readingId,
-                                                 @RequestBody @Valid ReviewRequest request) {
-        Review review = new Review();
-        review.setDescription(request.getDescription());
+    @PostMapping
+    public ResponseEntity<ReviewResponse> create(
+            @RequestBody @Valid ReviewRequest request) {
 
-        Review saved = service.create(readingId, review);
+        try {
+            Review review = new Review();
+            review.setDescription(request.getDescription());
 
-        URI uri = URI.create("/reviews/" + saved.getId());
-        return ResponseEntity.created(uri).body(toResponse(saved));
+            Review saved = service.create(request.getReadingId(), review);
+
+            URI uri = URI.create("/reviews/" + saved.getId());
+            return ResponseEntity.created(uri).body(toResponse(saved));
+
+        } catch (RuntimeException e) {
+            return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
+        }
     }
-
     @Operation(summary = "Atualiza uma review")
     @ApiResponses({
             @ApiResponse(responseCode = "200", description = "Atualizado",
                     content = @Content(mediaType = "application/json",
                             schema = @Schema(implementation = ReviewResponse.class))),
-            @ApiResponse(responseCode = "404", description = "Review não encontrada",
+            @ApiResponse(responseCode = "404", description = "Review ou Reading não encontrada",
                     content = @Content(schema = @Schema()))
     })
     @PutMapping("/{id}")
     public ResponseEntity<ReviewResponse> update(@PathVariable Long id,
                                                  @RequestBody @Valid ReviewRequest request) {
         try {
-            Review review = new Review();
-            review.setDescription(request.getDescription());
-
-            Review updated = service.update(id, review);
+            Review updated = service.update(id, request);
             return ResponseEntity.ok(toResponse(updated));
+
         } catch (RuntimeException e) {
             return ResponseEntity.notFound().build();
         }
