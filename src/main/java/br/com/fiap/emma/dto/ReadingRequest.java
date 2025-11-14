@@ -15,6 +15,8 @@ public class ReadingRequest {
     @NotBlank(message = "O humor é obrigatório")
     private String humor;
 
+    private Long personId;
+
     public ReadingRequest() {}
 
     public ReadingRequest(LocalDateTime date, String description, String humor) {
@@ -32,4 +34,12 @@ public class ReadingRequest {
 
     public String getHumor() { return humor; }
     public void setHumor(String humor) { this.humor = humor; }
+
+    public Long getPersonId() {
+        return personId;
+    }
+
+    public void setPersonId(Long personId) {
+        this.personId = personId;
+    }
 }

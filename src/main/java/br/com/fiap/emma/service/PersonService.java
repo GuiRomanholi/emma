@@ -6,6 +6,8 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.cache.annotation.CacheEvict;
 import org.springframework.cache.annotation.CachePut;
 import org.springframework.cache.annotation.Cacheable;
+// IMPORT NECESSÁRIO
+import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
@@ -15,9 +17,12 @@ public class PersonService {
 
     private final PersonRepository repository;
 
+    private final PasswordEncoder passwordEncoder;
+
     @Autowired
-    public PersonService(PersonRepository repository) {
+    public PersonService(PersonRepository repository, PasswordEncoder passwordEncoder) {
         this.repository = repository;
+        this.passwordEncoder = passwordEncoder;
     }
 
     @Cacheable(value = "persons")
@@ -43,8 +48,13 @@ public class PersonService {
         Person existing = findById(id);
         existing.setName(person.getName());
         existing.setEmail(person.getEmail());
-        existing.setPassword(person.getPassword());
         existing.setRole(person.getRole());
+
+        if (person.getPassword() != null && !person.getPassword().isEmpty()) {
+            String encryptedPassword = passwordEncoder.encode(person.getPassword());
+            existing.setPassword(encryptedPassword);
+        }
+
         return repository.save(existing);
     }
 
