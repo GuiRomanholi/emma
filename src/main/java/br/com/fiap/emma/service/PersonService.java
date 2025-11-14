@@ -39,6 +39,9 @@ public class PersonService {
     @CachePut(value = "person", key = "#result.id")
     @CacheEvict(value = "persons", allEntries = true)
     public Person save(Person person) {
+        String encryptedPassword = passwordEncoder.encode(person.getPassword());
+        person.setPassword(encryptedPassword);
+
         return repository.save(person);
     }
 

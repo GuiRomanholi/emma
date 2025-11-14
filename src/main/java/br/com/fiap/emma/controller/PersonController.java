@@ -20,9 +20,10 @@ import io.swagger.v3.oas.annotations.media.Schema;
 
 import java.util.List;
 
-@Tag(name = "Person", description = "Operações com Person")
+
 @RestController
 @RequestMapping(value = "/api/persons", produces = {"application/json"})
+@Tag(name = "Person", description = "Operações com Person")
 public class PersonController {
 
     @Autowired
@@ -135,6 +136,7 @@ public class PersonController {
                 p.getId(),
                 p.getName(),
                 p.getEmail(),
+                p.getPassword(),
                 p.getRole()
         );
     }

@@ -63,7 +63,7 @@ public class ReviewController {
         }
     }
 
-    @Operation(summary = "Cria uma review para uma Reading (informe readingId na URL)")
+    @Operation(summary = "Cria uma review para uma Reading")
     @ApiResponses({
             @ApiResponse(responseCode = "201", description = "Review criada",
                     content = @Content(mediaType = "application/json",

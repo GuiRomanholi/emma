@@ -63,7 +63,7 @@ public class ReadingController {
         }
     }
 
-    @Operation(summary = "Cria uma nova leitura para um Person (informe personId na URL)")
+    @Operation(summary = "Cria uma nova leitura para um Person")
     @ApiResponses({
             @ApiResponse(responseCode = "201", description = "Leitura criada",
                     content = @Content(mediaType = "application/json",
