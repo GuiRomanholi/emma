@@ -1,0 +1,65 @@
+<!DOCTYPE html>
+<html lang="pt-br"
+      xmlns:th="http://www.thymeleaf.org"
+      xmlns:sec="http://www.thymeleaf.org/thymeleaf-extras-springsecurity6">
+
+<head>
+    <meta charset="UTF-8">
+    <title>Fragmentos</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+</head>
+<body>
+
+<header th:fragment="header" class="bg-blue-600 text-white py-6 border-b-4 border-blue-800">
+    <div class="max-w-5xl mx-auto text-center">
+        <h1 class="text-4xl font-semibold">Emma</h1>
+
+        <nav class="mt-4">
+            <ul class="flex justify-center gap-8">
+
+                <th:block sec:authorize="isAuthenticated()">
+                    <li>
+                        <a th:href="@{/readings}" class="font-semibold hover:text-gray-200 text-lg transition">
+                            Leituras
+                        </a>
+                    </li>
+                    <li>
+                        <a th:href="@{/reviews}" class="font-semibold hover:text-gray-200 text-lg transition">
+                            Reviews
+                        </a>
+                    </li>
+                    <li sec:authorize="hasRole('ADMIN')">
+                        <a th:href="@{/persons}" class="font-semibold hover:text-gray-200 text-lg transition">
+                            Pessoas
+                        </a>
+                    </li>
+                </th:block>
+
+                <li sec:authorize="isAnonymous()">
+                    <a th:href="@{/login}" class="font-semibold hover:text-gray-200 text-lg transition">
+                        Login
+                    </a>
+                </li>
+
+                <li sec:authorize="isAuthenticated()">
+                    <form th:action="@{/logout}" method="post" class="inline">
+                        <input type="hidden" th:name="${_csrf.parameterName}" th:value="${_csrf.token}" />
+                        <button type="submit"
+                                class="font-semibold hover:text-gray-200 text-lg transition cursor-pointer bg-transparent border-none p-0">
+                            Logout
+                        </button>
+                    </form>
+                </li>
+            </ul>
+        </nav>
+    </div>
+</header>
+
+<footer th:fragment="footer" class="text-center py-6 mt-10 text-white bg-gray-800">
+    <div class="max-w-5xl mx-auto">
+        <p>&copy; 2025 Emma. Todos os direitos reservados.</p>
+    </div>
+</footer>
+
+</body>
+</html>

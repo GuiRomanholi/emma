@@ -1,47 +1,58 @@
 <!DOCTYPE html>
-<html lang="pt-br" xmlns:th="http://www.thymeleaf.org">
+<html lang="pt-br"
+      xmlns:th="http://www.thymeleaf.org"
+      xmlns:sec="http://www.thymeleaf.org/thymeleaf-extras-springsecurity6">
 <head>
     <meta charset="UTF-8">
     <title>Editar Leitura</title>
-    <style>
-        body { font-family: sans-serif; margin: 20px; }
-        .container { max-width: 500px; margin: 0 auto; }
-        .form-group { margin-bottom: 15px; }
-        label { display: block; margin-bottom: 5px; }
-        input, select, textarea { width: 100%; padding: 8px; box-sizing: border-box; }
-        button { padding: 10px 15px; background-color: #007bff; color: white; border: none; cursor: pointer; }
-    </style>
+    <script src="https://cdn.tailwindcss.com"></script>
 </head>
-<body>
-<div class="container">
-    <h2>Editar Leitura</h2>
+<body class="font-sans bg-gray-100 text-gray-800">
 
-    <form th:action="@{/readings/update/{id}(id=${readingId})}" th:object="${readingRequest}" method="post">
-        <div class="form-group">
-            <label for="date">Data e Hora:</label>
-            <input type="datetime-local" id="date" th:field="*{date}" required>
-        </div>
-        <div class="form-group">
-            <label for="humor">Humor:</label>
-            <input type="text" id="humor" th:field="*{humor}">
-        </div>
-        <div class="form-group">
-            <label for="description">Descrição:</label>
-            <textarea id="description" th:field="*{description}" rows="5"></textarea>
-        </div>
+<div th:replace="~{fragments/layout :: header}"></div>
 
-        <div class="form-group">
-            <label for="personId">Pessoa:</label>
-            <select id="personId" th:field="*{personId}">
-                <option value="">Nenhuma Pessoa</option> <option th:each="p : ${persons}"
-                                                                 th:value="${p.id}"
-                                                                 th:text="${p.name}"></option>
-            </select>
-        </div>
+<main class="max-w-2xl mx-auto p-4 mt-10">
+    <div class="bg-white shadow-md rounded-lg p-8">
+        <h2 class="text-3xl font-semibold mb-6">Editar Leitura</h2>
 
-        <button type="submit">Salvar Alterações</button>
-    </form>
-    <a th:href="@{/readings}">Voltar para a lista</a>
-</div>
+        <form th:action="@{/readings/update/{id}(id=${readingId})}" th:object="${readingRequest}" method="post" class="w-full">
+            <div class="mb-6">
+                <label for="date" class="block text-gray-700 text-sm font-bold mb-2">Data e Hora:</label>
+                <input type="datetime-local" id="date" th:field="*{date}" required
+                       class="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline">
+            </div>
+            <div class="mb-6">
+                <label for="humor" class="block text-gray-700 text-sm font-bold mb-2">Humor:</label>
+                <input type="text" id="humor" th:field="*{humor}"
+                       class="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline">
+            </div>
+            <div class="mb-6">
+                <label for="personId" class="block text-gray-700 text-sm font-bold mb-2">Pessoa:</label>
+                <select id="personId" th:field="*{personId}"
+                        class="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline">
+                    <option value="">Nenhuma Pessoa</option>
+                    <option th:each="p : ${persons}" th:value="${p.id}" th:text="${p.name}"></option>
+                </select>
+            </div>
+            <div class="mb-6">
+                <label for="description" class="block text-gray-700 text-sm font-bold mb-2">Descrição:</label>
+                <textarea id="description" th:field="*{description}" rows="5"
+                          class="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"></textarea>
+            </div>
+
+            <div class="flex items-center justify-between">
+                <button type="submit" class="bg-blue-600 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded focus:outline-none focus:shadow-outline">
+                    Salvar Alterações
+                </button>
+                <a th:href="@{/readings}" class="inline-block align-baseline font-bold text-sm text-blue-600 hover:text-blue-800">
+                    Voltar para a lista
+                </a>
+            </div>
+        </form>
+    </div>
+</main>
+
+<div th:replace="~{fragments/layout :: footer}"></div>
+
 </body>
 </html>
