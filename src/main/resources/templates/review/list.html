@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<html lang="pt-br" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Lista de Reviews</title>
+    <style>
+        body { font-family: sans-serif; margin: 20px; }
+        table { width: 100%; border-collapse: collapse; }
+        th, td { border: 1px solid #ddd; padding: 8px; }
+        th { background-color: #f2f2f2; }
+        a { text-decoration: none; }
+        .btn { padding: 5px 10px; border-radius: 5px; }
+        .btn-create { background-color: #007bff; color: white; margin-bottom: 15px; display: inline-block; }
+        .btn-edit { background-color: #ffc107; color: black; }
+        .btn-delete { background-color: #dc3545; color: white; }
+        .error { background-color: #f8d7da; color: #721c24; padding: 10px; border-radius: 5px; }
+        .success { background-color: #d4edda; color: #155724; padding: 10px; border-radius: 5px; }
+    </style>
+</head>
+<body>
+<h2>Gerenciamento de Reviews</h2>
+
+<div th:if="${successMessage}" class="success">
+    <p th:text="${successMessage}"></p>
+</div>
+<div th:if="${errorMessage}" class="error">
+    <p th:text="${errorMessage}"></p>
+</div>
+
+<a th:href="@{/reviews/create}" class="btn btn-create">Nova Review</a>
+
+<table>
+    <thead>
+    <tr>
+        <th>ID</th>
+        <th>Descrição</th>
+        <th>Leitura Associada (ID)</th>
+        <th>Ações</th>
+    </tr>
+    </thead>
+    <tbody>
+    <tr th:each="r : ${reviews}">
+        <td th:text="${r.id}">1</td>
+        <td th:text="${r.description}">Descrição da Review</td>
+        <td th:text="${r.reading?.id}">ID da Leitura</td>
+        <td>
+            <a th:href="@{/reviews/edit/{id}(id=${r.id})}" class="btn btn-edit">Editar</a>
+            <a th:href="@{/reviews/delete/{id}(id=${r.id})}" class="btn btn-delete" onclick="return confirm('Tem certeza que deseja deletar?');">Deletar</a>
+        </td>
+    </tr>
+    </tbody>
+</table>
+</body>
+</html>

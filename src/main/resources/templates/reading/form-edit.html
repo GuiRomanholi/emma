@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html lang="pt-br" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Editar Leitura</title>
+    <style>
+        body { font-family: sans-serif; margin: 20px; }
+        .container { max-width: 500px; margin: 0 auto; }
+        .form-group { margin-bottom: 15px; }
+        label { display: block; margin-bottom: 5px; }
+        input, select, textarea { width: 100%; padding: 8px; box-sizing: border-box; }
+        button { padding: 10px 15px; background-color: #007bff; color: white; border: none; cursor: pointer; }
+    </style>
+</head>
+<body>
+<div class="container">
+    <h2>Editar Leitura</h2>
+
+    <form th:action="@{/readings/update/{id}(id=${readingId})}" th:object="${readingRequest}" method="post">
+        <div class="form-group">
+            <label for="date">Data e Hora:</label>
+            <input type="datetime-local" id="date" th:field="*{date}" required>
+        </div>
+        <div class="form-group">
+            <label for="humor">Humor:</label>
+            <input type="text" id="humor" th:field="*{humor}">
+        </div>
+        <div class="form-group">
+            <label for="description">Descrição:</label>
+            <textarea id="description" th:field="*{description}" rows="5"></textarea>
+        </div>
+
+        <div class="form-group">
+            <label for="personId">Pessoa:</label>
+            <select id="personId" th:field="*{personId}">
+                <option value="">Nenhuma Pessoa</option> <option th:each="p : ${persons}"
+                                                                 th:value="${p.id}"
+                                                                 th:text="${p.name}"></option>
+            </select>
+        </div>
+
+        <button type="submit">Salvar Alterações</button>
+    </form>
+    <a th:href="@{/readings}">Voltar para a lista</a>
+</div>
+</body>
+</html>

@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+<html lang="pt-br" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Lista de Pessoas</title>
+    <style>
+        body { font-family: sans-serif; margin: 20px; }
+        table { width: 100%; border-collapse: collapse; }
+        th, td { border: 1px solid #ddd; padding: 8px; }
+        th { background-color: #f2f2f2; }
+        a { text-decoration: none; }
+        .btn { padding: 5px 10px; border-radius: 5px; }
+        .btn-create { background-color: #007bff; color: white; margin-bottom: 15px; display: inline-block; }
+        .btn-edit { background-color: #ffc107; color: black; }
+        .btn-delete { background-color: #dc3545; color: white; }
+        .error { background-color: #f8d7da; color: #721c24; padding: 10px; border-radius: 5px; }
+        .success { background-color: #d4edda; color: #155724; padding: 10px; border-radius: 5px; }
+    </style>
+</head>
+<body>
+<h2>Gerenciamento de Pessoas</h2>
+
+<div th:if="${successMessage}" class="success">
+    <p th:text="${successMessage}"></p>
+</div>
+<div th:if="${errorMessage}" class="error">
+    <p th:text="${errorMessage}"></p>
+</div>
+
+<a th:href="@{/persons/create}" class="btn btn-create">Nova Pessoa</a>
+
+<table>
+    <thead>
+    <tr>
+        <th>ID</th>
+        <th>Nome</th>
+        <th>Email</th>
+        <th>Permissão</th>
+        <th>Ações</th>
+    </tr>
+    </thead>
+    <tbody>
+    <tr th:each="p : ${persons}">
+        <td th:text="${p.id}">1</td>
+        <td th:text="${p.name}">Nome da Pessoa</td>
+        <td th:text="${p.email}">email@pessoa.com</td>
+        <td th:text="${p.role}">USER</td>
+        <td>
+            <a th:href="@{/persons/edit/{id}(id=${p.id})}" class="btn btn-edit">Editar</a>
+            <a th:href="@{/persons/delete/{id}(id=${p.id})}" class="btn btn-delete" onclick="return confirm('Tem certeza que deseja deletar?');">Deletar</a>
+        </td>
+    </tr>
+    </tbody>
+</table>
+</body>
+</html>

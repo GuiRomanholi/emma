@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html lang="pt-br" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Nova Review</title>
+    <style>
+        body { font-family: sans-serif; margin: 20px; }
+        .container { max-width: 500px; margin: 0 auto; }
+        .form-group { margin-bottom: 15px; }
+        label { display: block; margin-bottom: 5px; }
+        input, select, textarea { width: 100%; padding: 8px; box-sizing: border-box; }
+        button { padding: 10px 15px; background-color: #007bff; color: white; border: none; cursor: pointer; }
+    </style>
+</head>
+<body>
+<div class="container">
+    <h2>Criar Nova Review</h2>
+
+    <form th:action="@{/reviews/create}" th:object="${review}" method="post">
+        <div class="form-group">
+            <label for="description">Descrição:</label>
+            <textarea id="description" th:field="*{description}" rows="5"></textarea>
+        </div>
+
+        <div class="form-group">
+            <label for="readingId">Leitura:</label>
+            <select id="readingId" name="readingId" required>
+                <option value="">Selecione a Leitura</option>
+                <option th:each="r : ${readings}"
+                        th:value="${r.id}"
+                        th:text="'ID: ' + ${r.id} + ' - ' + ${r.description}"></option>
+            </select>
+        </div>
+
+        <button type="submit">Salvar</button>
+    </form>
+    <a th:href="@{/reviews}">Voltar para a lista</a>
+</div>
+</body>
+</html>
