@@ -16,7 +16,6 @@
 
     <h2 class="text-3xl font-semibold text-white mb-8">Gerenciamento de Leituras</h2>
 
-    <!-- Mensagens -->
     <div th:if="${successMessage}"
          class="bg-green-900/40 border border-green-700 text-green-300 px-4 py-3 rounded-lg mb-4">
         <p th:text="${successMessage}"></p>
@@ -27,13 +26,11 @@
         <p th:text="${errorMessage}"></p>
     </div>
 
-    <!-- Botão Nova Leitura -->
     <a th:href="@{/readings/create}"
        class="inline-block bg-white text-black font-semibold py-2 px-4 rounded-lg hover:opacity-80 transition mb-6">
         Nova Leitura
     </a>
 
-    <!-- Tabela -->
     <div class="bg-neutral-900 border border-neutral-800 rounded-2xl overflow-hidden shadow-xl">
 
         <table class="min-w-full">
@@ -60,7 +57,9 @@
 
                 <td class="py-4 px-6" th:text="${r.humor}"></td>
 
-                <td class="py-4 px-6" th:text="${r.description}"></td>
+                <td class="py-4 px-6 max-w-xs whitespace-normal break-words overflow-y-auto max-h-24"
+                    th:text="${r.description}">
+                </td>
 
                 <td class="py-4 px-6" th:text="${r.person?.name}"></td>
 
