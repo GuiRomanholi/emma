@@ -32,6 +32,12 @@
                             Reviews
                         </a>
                     </li>
+                    <li>
+                        <a th:href="@{/emma/feeling}"
+                           class="font-medium text-lg hover:text-white hover:opacity-80 transition">
+                            Assistente Emma
+                        </a>
+                    </li>
                     <li sec:authorize="hasRole('ADMIN')">
                         <a th:href="@{/persons}"
                            class="font-medium text-lg hover:text-white hover:opacity-80 transition">
@@ -56,7 +62,6 @@
                         </button>
                     </form>
                 </li>
-
             </ul>
         </nav>
     </div>
