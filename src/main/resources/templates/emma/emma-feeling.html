@@ -21,12 +21,27 @@
 
         <form th:action="@{/emma/feeling}" method="post" class="space-y-6">
 
+            <!-- Selecionar apenas o ID da leitura -->
+            <div>
+                <label class="block mb-2 text-gray-300 font-medium">Selecione a leitura:</label>
+                <select name="readingId" required
+                        class="w-full bg-neutral-800 border border-neutral-700 text-gray-100 px-4 py-2 rounded-lg focus:outline-none focus:ring focus:ring-indigo-500">
+                    <option value="" disabled selected>Escolha...</option>
+                    <option th:each="reading : ${readings}"
+                            th:value="${reading.id}"
+                            th:text="'Leitura ID: ' + ${reading.id}">
+                    </option>
+                </select>
+            </div>
+
+            <!-- Sentimento -->
             <div>
                 <label class="block mb-2 text-gray-300 font-medium">Como você está se sentindo?</label>
                 <input type="text" name="feeling" required
                        class="w-full bg-neutral-800 border border-neutral-700 text-gray-100 px-4 py-2 rounded-lg focus:outline-none focus:ring focus:ring-indigo-500">
             </div>
 
+            <!-- Descrição opcional -->
             <div>
                 <label class="block mb-2 text-gray-300 font-medium">Quer descrever melhor o que aconteceu? (opcional)</label>
                 <textarea name="description" rows="5"

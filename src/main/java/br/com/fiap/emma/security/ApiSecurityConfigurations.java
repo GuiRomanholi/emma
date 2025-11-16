@@ -31,7 +31,7 @@ public class ApiSecurityConfigurations {
                         .requestMatchers(HttpMethod.POST, "/api/auth/register", "/api/auth/login").permitAll()
                         .requestMatchers(HttpMethod.GET, "/api/persons").hasRole("ADMIN")
 
-                        .requestMatchers("/api/ai/**").hasAnyRole("USER", "ADMIN")
+                        .requestMatchers("/api/emma/**").hasAnyRole("USER", "ADMIN")
 
                         .anyRequest().authenticated()
                 )
