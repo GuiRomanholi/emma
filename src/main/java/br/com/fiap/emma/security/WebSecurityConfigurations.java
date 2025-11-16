@@ -22,8 +22,9 @@ public class WebSecurityConfigurations {
                         .requestMatchers("/css/**", "/js/**", "/images/**").permitAll()
 
                         .requestMatchers(AntPathRequestMatcher.antMatcher("/h2-console/**")).permitAll()
-
                         .requestMatchers("/persons/**").hasRole("ADMIN")
+
+                        .requestMatchers("/emma/**").hasAnyRole("USER", "ADMIN")
 
                         .anyRequest().authenticated()
                 )
