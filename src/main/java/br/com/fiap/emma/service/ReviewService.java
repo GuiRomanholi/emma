@@ -7,6 +7,8 @@ import br.com.fiap.emma.repository.ReadingRepository;
 import br.com.fiap.emma.repository.ReviewRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.cache.annotation.*;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
@@ -66,4 +68,9 @@ public class ReviewService {
     public void delete(Long id) {
         reviewRepository.deleteById(id);
     }
+
+    public Page<Review> findAllPageable(Pageable pageable) {
+        return reviewRepository.findAll(pageable);
+    }
+
 }

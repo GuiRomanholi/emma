@@ -7,6 +7,8 @@ import org.springframework.cache.annotation.CacheEvict;
 import org.springframework.cache.annotation.CachePut;
 import org.springframework.cache.annotation.Cacheable;
 // IMPORT NECESSÁRIO
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
@@ -64,5 +66,9 @@ public class PersonService {
     @CacheEvict(value = {"person", "persons"}, key = "#id", allEntries = true)
     public void delete(Long id) {
         repository.deleteById(id);
+    }
+
+    public Page<Person> findAllPageable(Pageable pageable) {
+        return repository.findAll(pageable);
     }
 }

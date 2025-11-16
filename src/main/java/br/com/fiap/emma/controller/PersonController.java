@@ -6,6 +6,10 @@ import br.com.fiap.emma.model.Person;
 import br.com.fiap.emma.service.PersonService;
 import jakarta.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.Pageable;
+import org.springframework.data.domain.Sort;
 import org.springframework.hateoas.Link;
 import org.springframework.hateoas.server.mvc.WebMvcLinkBuilder;
 import org.springframework.http.ResponseEntity;
@@ -36,13 +40,14 @@ public class PersonController {
                             schema = @Schema(implementation = PersonResponse.class)))
     })
     @GetMapping
-    public ResponseEntity<List<PersonResponse>> findAll() {
-        List<PersonResponse> responses = service.findAll()
-                .stream()
-                .map(this::toResponse)
-                .toList();
+    public ResponseEntity<Page<PersonResponse>> findAll(
+            @RequestParam(defaultValue = "0") Integer page
+    ) {
+        Pageable pageable = PageRequest.of(page, 10, Sort.by("name").ascending());
+        Page<PersonResponse> responsePage = service.findAllPageable(pageable)
+                .map(this::toResponse);
 
-        return ResponseEntity.ok(responses);
+        return ResponseEntity.ok(responsePage);
     }
 
     @Operation(summary = "Retorna um usuario por ID")

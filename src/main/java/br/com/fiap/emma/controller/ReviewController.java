@@ -6,6 +6,10 @@ import br.com.fiap.emma.model.Review;
 import br.com.fiap.emma.service.ReviewService;
 import jakarta.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.Pageable;
+import org.springframework.data.domain.Sort;
 import org.springframework.hateoas.Link;
 import org.springframework.hateoas.server.mvc.WebMvcLinkBuilder;
 import org.springframework.http.HttpStatus;
@@ -37,13 +41,14 @@ public class ReviewController {
                             schema = @Schema(implementation = ReviewResponse.class)))
     })
     @GetMapping
-    public ResponseEntity<List<ReviewResponse>> findAll() {
-        List<ReviewResponse> responses = service.findAll()
-                .stream()
-                .map(this::toResponse)
-                .toList();
+    public ResponseEntity<Page<ReviewResponse>> findAll(
+            @RequestParam(defaultValue = "0") Integer page
+    ) {
+        Pageable pageable = PageRequest.of(page, 10, Sort.by("id").ascending());
+        Page<ReviewResponse> responsePage = service.findAllPageable(pageable)
+                .map(this::toResponse);
 
-        return ResponseEntity.ok(responses);
+        return new ResponseEntity<>(responsePage, HttpStatus.OK);
     }
 
     @Operation(summary = "Retorna uma review por ID")

@@ -8,6 +8,7 @@ import org.springframework.cache.annotation.EnableCaching;
 
 //http://localhost:8081/swagger-ui/index.html
 //http://localhost:8081/register
+//http://localhost:8081/h2-console
 //JDBC URL:	jdbc:h2:mem:testdb, User Name: sa, Password: deixar em branco
 @EnableCaching
 @OpenAPIDefinition(info =

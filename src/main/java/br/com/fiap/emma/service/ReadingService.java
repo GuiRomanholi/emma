@@ -7,6 +7,8 @@ import br.com.fiap.emma.repository.PersonRepository;
 import br.com.fiap.emma.repository.ReadingRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.cache.annotation.*;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
@@ -67,5 +69,9 @@ public class ReadingService {
     @CacheEvict(value = {"reading", "readings"}, key = "#id", allEntries = true)
     public void delete(Long id) {
         readingRepository.deleteById(id);
+    }
+
+    public Page<Reading> findAllPageable(Pageable pageable) {
+        return readingRepository.findAll(pageable);
     }
 }

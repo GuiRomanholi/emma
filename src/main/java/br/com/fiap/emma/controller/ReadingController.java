@@ -6,6 +6,10 @@ import br.com.fiap.emma.model.Reading;
 import br.com.fiap.emma.service.ReadingService;
 import jakarta.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.Pageable;
+import org.springframework.data.domain.Sort;
 import org.springframework.hateoas.Link;
 import org.springframework.hateoas.server.mvc.WebMvcLinkBuilder;
 import org.springframework.http.HttpStatus;
@@ -37,13 +41,14 @@ public class ReadingController {
                             schema = @Schema(implementation = ReadingResponse.class)))
     })
     @GetMapping
-    public ResponseEntity<List<ReadingResponse>> findAll() {
-        List<ReadingResponse> responses = service.findAll()
-                .stream()
-                .map(this::toResponse)
-                .toList();
+    public ResponseEntity<Page<ReadingResponse>> findAll(
+            @RequestParam(defaultValue = "0") Integer page
+    ) {
+        Pageable pageable = PageRequest.of(page, 10, Sort.by("date").descending());
+        Page<ReadingResponse> responsePage = service.findAllPageable(pageable)
+                .map(this::toResponse);
 
-        return ResponseEntity.ok(responses);
+        return new ResponseEntity<>(responsePage, HttpStatus.OK);
     }
 
     @Operation(summary = "Retorna uma leitura por ID")
