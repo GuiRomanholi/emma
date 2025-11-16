@@ -25,21 +25,32 @@ public class EmmaAssistantController {
     @GetMapping("/feeling")
     @Operation(
             summary = "Obter apoio emocional baseado no sentimento",
-            description = "Retorna dicas e estratégias acolhedoras baseadas no estado emocional informado."
+            description = "Retorna dicas e estratégias acolhedoras com base no sentimento e descrição fornecidos."
     )
     @ApiResponse(responseCode = "200", description = "Resposta gerada com sucesso")
     public FeelingResponse getFeelingSupport(
-            @Parameter(description = "Sentimento atual do usuário")
-            @RequestParam(defaultValue = "sobrecarregado") String feeling
+            @Parameter(description = "Sentimento atual do usuário (ex: ansioso, triste, estressado)")
+            @RequestParam(defaultValue = "sobrecarregado") String feeling,
+
+            @Parameter(description = "Descrição adicional ou contexto da situação (opcional)")
+            @RequestParam(defaultValue = "Muito Cansado") String description
     ) {
+
+        String prompt = """
+        Você é Emma, uma assistente de bem-estar gentil, empática e acolhedora.
+        Responda em primeira pessoa com 3 a 5 estratégias práticas.
+        Seja breve, empática e jamais forneça conselhos médicos ou diagnósticos.
+        
+        Sentimento informado: %s
+        Descrição/contexto: %s
+        """.formatted(feeling, description);
 
         String response = chatClient.prompt()
                 .system("""
-                        Você é Emma, uma assistente de bem-estar gentil e empática.
-                        Responda em primeira pessoa com 3 a 5 estratégias práticas.
-                        Seja breve, acolhedora e sem dar conselhos médicos.
-                    """)
-                .user("Estou me sentindo: " + feeling)
+                Você é Emma, uma assistente emocional solidária e acolhedora.
+                Sempre responda de forma compreensiva, curta e prática.
+            """)
+                .user(prompt)
                 .call()
                 .content();
 
