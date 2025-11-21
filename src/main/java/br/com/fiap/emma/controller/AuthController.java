@@ -58,6 +58,7 @@ public class AuthController {
                 authDTO.email(),
                 authDTO.password()
         );
+
         var auth = this.authenticationManager.authenticate(userPwd);
 
         var person = (Person) auth.getPrincipal();
@@ -66,6 +67,7 @@ public class AuthController {
 
         return ResponseEntity.ok(new LoginResponseDTO(
                 token,
+                person.getId(),
                 person.getName(),
                 person.getEmail(),
                 person.getRole()
