@@ -163,6 +163,7 @@ Antes de começar, garanta que você tenha:
 
 ## 🎥 Link do Vídeo
 [Link do Video de Java](https://www.youtube.com/watch?v=aB91T3yk46E)
+[Link do Pitch](https://www.youtube.com/watch?v=5FUpD32GzOM)
 
 ---
 
