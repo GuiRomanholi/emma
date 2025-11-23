@@ -1,56 +1,153 @@
-# 🧘‍♀️ EMMA — Assistente de Bem-Estar para Profissionais
+# ⚡ EMMA — Assistente Inteligente de Bem-Estar e Eficiência Energética no Trabalho
 
-A **EMMA** é um aplicativo mobile focado em promover o bem-estar emocional e mental de trabalhadores. Seu objetivo é ajudar profissionais a acompanharem seu estado emocional, reduzirem o estresse e manterem uma rotina de trabalho mais saudável, equilibrada e sustentável.
+A **EMMA** é um aplicativo mobile voltado para o bem-estar emocional e mental de trabalhadores, conectado ao conceito de **eficiência energética humana**, ajudando pessoas e organizações a utilizarem melhor sua “energia” física e mental no ambiente de trabalho.
+
+O projeto une **saúde mental, produtividade sustentável e uso consciente de energia humana**, promovendo rotinas mais equilibradas, menor estresse e melhor desempenho profissional.
 
 ---
 
 ## 🎯 Ideia Principal
 
-A EMMA permite que o usuário registre como está se sentindo ao longo do dia, acompanhe sua evolução emocional e receba dicas de bem-estar personalizadas.
+A EMMA permite que o usuário:
 
-Por meio de uma interface simples e intuitiva, o app incentiva hábitos saudáveis e práticas de autocuidado, auxiliando na prevenção do estresse, da ansiedade e do burnout.
+- Registre seu estado emocional diariamente
+- Acompanhe a evolução do seu nível de energia mental
+- Receba dicas personalizadas para melhorar o equilíbrio entre:
+  - saúde mental
+  - produtividade
+  - qualidade de vida no trabalho
+
+O aplicativo estimula hábitos saudáveis que reduzem o desperdício de energia física e mental no dia a dia profissional.
 
 ---
 
-## 🧩 Problema
+## 🧩 Problema (Contexto Energético e Social)
 
 Com o crescimento do trabalho remoto e híbrido, muitos profissionais enfrentam:
 
-- Aumento do estresse e ansiedade  
-- Dificuldade em equilibrar vida pessoal e profissional  
-- Sobrecarga mental e falta de pausas  
-- Pressão contínua por produtividade  
+- Alto consumo de energia mental devido à sobrecarga de tarefas
+- Estresse constante e ansiedade
+- Falta de pausas regenerativas
+- Dificuldade de separação entre vida pessoal e profissional
 
-Esses fatores impactam diretamente a saúde mental e o desempenho no trabalho, contribuindo para o esgotamento (burnout) e queda na qualidade de vida.
+Isso causa:
+
+- **Esgotamento (burnout)**
+- **Queda na produtividade**
+- **Desperdício de energia humana**
+- Impactos indiretos no consumo de energia elétrica (uso excessivo de equipamentos, aumento do tempo ativo desnecessário)
 
 ---
 
 ## 💡 Solução
 
-A EMMA funciona como um **assistente digital de bem-estar emocional**, combinando tecnologia, design simples e práticas de autocuidado.
+A EMMA atua como um **assistente de bem-estar e eficiência energética humana**, utilizando tecnologia para otimizar o uso da energia mental do trabalhador.
 
-- O usuário registra diariamente seu humor e nível de estresse.  
-- A IA analisa padrões emocionais ao longo do tempo.  
-- O sistema oferece **dicas personalizadas** para melhorar o bem-estar.  
-- Gráficos e relatórios semanais ajudam a visualizar a evolução emocional.  
+O systema oferece:
 
-Tudo isso em uma experiência amigável, leve e fácil de usar no dia a dia.
+- Registro diário de humor e nível de estresse
+- Análise inteligente dos padrões emocionais
+- Recomendações personalizadas para:
+  - pausas estratégicas
+  - alongamentos
+  - respiração consciente
+  - momentos de relaxamento
+
+Além disso, o app apresenta **gráficos e relatórios semanais**, permitindo a visualização da evolução emocional e do nível de “energia mental sustentável”.
+
+---
+
+## ⚙️ Funcionalidades
+
+### 📱 App Mobile (React Native + Expo)
+
+- Tela de Login e Cadastro (autenticação via API JWT)
+- Registro Diário de Humor:
+  - Feliz
+  - Neutro
+  - Cansado
+  - Estressado
+- Gráfico Semanal de Humor
+- Tela de Dicas de Bem-Estar:
+  - Exercícios rápidos
+  - Pausas guiadas
+  - Práticas de relaxamento
 
 ---
 
 ## 🧠 Inteligência Artificial
 
-A IA do sistema (Emma) analisa os registros de humor e os padrões de comportamento para gerar recomendações personalizadas.
+A IA integrada ao sistema (WorkCare) analisa o histórico emocional do usuário e identifica padrões de:
 
-### Exemplos de Sugestões
+- Estresse elevado
+- Queda de bem-estar
+- Sobrecarga mental
 
-- **Para altos níveis de estresse:**  
-  > “Faça uma pausa de 5 minutos e pratique uma respiração profunda.”
+### Exemplos de Sugestões da IA
 
-- **Para humor baixo:**  
-  > “Experimente uma breve caminhada para clarear a mente.”
+- Em caso de alto estresse:
+  > "Faça uma pausa de 5 minutos e pratique uma respiração profunda."
 
-As dicas são rápidas, simples e projetadas para caber na rotina profissional.
+- Em caso de humor baixo:
+  > "Experimente uma breve caminhada para clarear a mente."
+
+A IA atua como um mecanismo de **gestão inteligente da energia humana**, reduzindo desperdícios e otimizando a produtividade.
+
+---
+
+## 🌱 Relevância e Inovação (Critérios do Projeto)
+
+### ✅ Relevância na Área Energética
+
+O projeto aborda a **eficiência no uso da energia humana**, considerando que trabalhadores sobrecarregados geram:
+
+- Maior consumo de recursos
+- Menor produtividade
+- Aumento de falhas operacionais
+
+A EMMA propõe um novo olhar sobre **energia sustentável aplicada ao ser humano**.
+
+### ✅ Inovação
+
+- Integra saúde mental com o conceito de eficiência energética
+- Uso de IA para análise comportamental
+- Abordagem criativa que conecta tecnologia, bem-estar e sustentabilidade
+- Uso de tecnologias modernas (React Native, Expo, APIs seguras com JWT)
+
+### ✅ Impacto Positivo
+
+- Redução de burnout
+- Melhora da qualidade de vida
+- Estímulo ao consumo consciente de energia
+- Contribuição indireta à sustentabilidade ambiental
+
+---
+
+## 🛠️ Viabilidade e Usabilidade
+
+### ✅ Viabilidade Técnica
+
+O projeto é totalmente viável utilizando:
+
+- React Native + Expo
+- API REST com autenticação JWT
+- Banco de dados para histórico emocional
+- Algoritmos de análise de padrões comportamentais
+
+### ✅ Facilidade de Uso
+
+- Interface simples e intuitiva
+- Fluxos diretos e claros
+- Funcionalidades pensadas para integração natural à rotina de trabalho
+
+### ✅ Compreensão Tecnológica
+
+O projeto demonstra domínio sobre:
+
+- Desenvolvimento mobile
+- Segurança com autenticação JWT
+- Uso prático de IA para análise de dados comportamentais
+- Visualização de dados com gráficos
 
 ---
 
