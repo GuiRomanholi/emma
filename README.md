@@ -180,6 +180,8 @@ Tambem pode acessar as páginas criadas com o thymeleaf (Recomendado):
 
 ## 🔗 Rotas Pricipais para teste Local
 
+(ATENÇÃO CASO FOR RODAR LOCAL A VARIAVEL DA AI É UMA VARIAVEL DE AMBIENTE QUE SERÁ MANDADA NO TXT)
+
 A API do projeto pode ser acessada via Swagger na rota, ou pela páginas html, e o banco tambem:
 
 - [http://localhost:8081/register](http://localhost:8081/register)
